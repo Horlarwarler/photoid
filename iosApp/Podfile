@@ -1,0 +1,15 @@
+# Uncomment the next line to define a global platform for your project
+
+platform :ios, '17.2'
+target 'iosApp' do
+    platform :ios, '17.2'
+
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+    pod 'GoogleMLKit/FaceDetection', '3.2.0'
+    #pod 'GoogleMLKit/Vision', '3.2.0'
+    #pod 'GoogleMLKit/SubjectSegmentation', '3.2.0'
+
+  # Pods for iosApp
+
+end
