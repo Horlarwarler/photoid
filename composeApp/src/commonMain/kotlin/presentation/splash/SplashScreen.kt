@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import data.image.BackgroundRemoval
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
@@ -37,7 +38,6 @@ import ui.black
 import ui.largePadding
 import ui.mediumPadding
 import ui.white
-import util.GoogleMlkit
 
 
 @Composable
@@ -51,8 +51,7 @@ fun SplashScreen(
     }
 
     LaunchedEffect(key1 = true) {
-
-        GoogleMlkit.initMlKit()
+        BackgroundRemoval.initMlKit()
         delay(3000)
         navigateFromSplash()
         return@LaunchedEffect

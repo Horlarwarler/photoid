@@ -22,10 +22,9 @@ import kotlinx.serialization.json.Json
 import org.koin.compose.viewmodel.dsl.viewModelOf
 import org.koin.dsl.module
 import presentation.editor.EditorViewModel
-import presentation.specification.SpecificationViewModel
+import specification.presentation.specification_list.SpecificationViewModel
 import presentation.specification_details.SpecificationDetailsViewModel
 import presentation.splash.SplashViewModel
-import util.initLogger
 
 
 val provideHttpClient = module {

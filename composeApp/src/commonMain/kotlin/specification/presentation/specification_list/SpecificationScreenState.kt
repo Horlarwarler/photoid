@@ -1,4 +1,4 @@
-package presentation.specification
+package specification.presentation.specification_list
 
 import domain.model.Specification
 import domain.model.SpecificationType

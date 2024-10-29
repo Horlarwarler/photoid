@@ -39,6 +39,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import data.image.BackgroundRemoval
 import domain.model.ImageProcessState
 import domain.model.Specification
 import domain.model.UserPhoto
@@ -181,39 +182,30 @@ fun SpecificationDetailsScreen(
         mutableStateOf(false)
     }
     var imageProcessState by remember {
-        mutableStateOf(ImageProcessState.INITIAL)
+        mutableStateOf<ImageProcessState>(ImageProcessState.Initial)
     }
     var job: Job? = null
 
     fun processImage(imageToProcess: ImageBitmap) {
         coroutineScope.launch() {
 
-            val faceFound = faceDetected(imageToProcess)
-            if (!faceFound) {
-                imageProcessState = ImageProcessState.ERROR
-
-                println("IMAGE NOT FOUND")
+            val removedBackground = BackgroundRemoval.removeBackground(imageToProcess)
+            val processImage = removedBackground.result
+            val errorMessage = removedBackground.errorMessage
+            if (errorMessage != null || processImage == null) {
+                imageProcessState =
+                    ImageProcessState.Error(errorMessage = errorMessage ?: "Unknown Error")
                 return@launch
             }
 
-            println("IMAGE  FOUND")
-
-            val processedImage = getResult(imageToProcess)
-
-            if (processedImage == null) {
-                imageProcessState = ImageProcessState.ERROR
-                println("IMAGE NO PROCESSED FOUND")
-
-                return@launch
-            }
             println("IMAGE PROCESSED FOUND")
 
             showImageUploadDialog = false
 
-            imageProcessState = ImageProcessState.PROCESSED
-            imageBitmap = processedImage
+            imageProcessState = ImageProcessState.Processed(image = processImage)
+            imageBitmap = processImage
             delay(1000)
-            imageProcessState = ImageProcessState.INITIAL
+            imageProcessState = ImageProcessState.Initial
         }
     }
 
@@ -238,13 +230,13 @@ fun SpecificationDetailsScreen(
             if (sharedImage != null) {
                 job?.cancel()
                 job = Job()
-                coroutineScope.launch(Dispatchers.IO + job!!) {
+                coroutineScope.launch(Dispatchers.IO + job) {
                     // imageBitmap =
 
                     processImage(sharedImage.toImageBitmap()!!)
                 }
             } else {
-                imageProcessState = ImageProcessState.SELECTING_IMAGE
+                imageProcessState = ImageProcessState.SelectingImage
 
             }
 

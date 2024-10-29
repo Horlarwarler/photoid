@@ -1,7 +1,6 @@
 package presentation.specification_details
 
 import domain.model.Specification
-import presentation.specification.SpecificationScreenEvent
 import util.UploadResult
 
 sealed interface SpecificationDetailsEvent {

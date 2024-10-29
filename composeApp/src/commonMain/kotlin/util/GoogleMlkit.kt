@@ -9,8 +9,6 @@ expect object GoogleMlkit {
     suspend fun getResult(imageBitmap: ImageBitmap): ImageBitmap?
 
     suspend fun faceDetected(imageBitmap: ImageBitmap): Boolean
-
-
 }
 
 

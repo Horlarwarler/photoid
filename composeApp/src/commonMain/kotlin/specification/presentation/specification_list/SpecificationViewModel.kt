@@ -1,4 +1,4 @@
-package presentation.specification
+package specification.presentation.specification_list
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import util.Result
-import util.UploadResult
 import util.addToList
 
 class SpecificationViewModel : ViewModel(), KoinComponent {
